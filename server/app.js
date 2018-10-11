@@ -1,34 +1,23 @@
 const express = require("express");
-const socket = require("socket.io");
+const bp = require("body-parser");
 const app = express();
 
-app.set("view engine","ejs");
-app.use(express.static("static"));
+require("morgan")("dev");
+app.use(bp.json());
+app.use(bp.urlencoded({extended:false}));
+
 
 app.get("/",(req,res)=>{
-    res.render("peer");
-});
-
-app.get("/admin",(req,res)=>{
-    res.render("baseStation");
+    res.send("HEllo world");
 });
 
 
-let server = app.listen(3000,"0.0.0.0",()=>console.log("Listening...."));
-
-let io = socket(server);
-
-io.sockets.on("connection",(client)=>{
-    console.log(client.id);
-    client.on("base station",(data)=>{
-        io.sockets.emit("base station",data);
+app.post("/",(req,res)=>{
+    res.send({
+        message:"This is the body",
+        body:req.body
     });
+});
 
-    client.on("location",(data)=>{
-        io.sockets.emit("location",{message:data.message,id:client.id});
-    });
 
-    client.on("chat",(data)=>{
-        io.sockets.emit("chat",{message:data.message,id:client.id});
-    });
-}); 
+server = app.listen(process.env.PORT || 3000,()=>console.log(`Listening on port ${server.address().port}`))

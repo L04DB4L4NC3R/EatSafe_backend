@@ -1,26 +1,17 @@
 {
-  "name": "call_for_code",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/angadsharma1016/call_for_code.git"
+    "start":"node app"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/angadsharma1016/call_for_code/issues"
-  },
-  "homepage": "https://github.com/angadsharma1016/call_for_code#readme",
   "dependencies": {
-    "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "nodemon": "^1.18.4",
-    "socket.io": "^2.1.1"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1"
   }
 }
