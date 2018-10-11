@@ -22,8 +22,8 @@ const tester = require("../helpers/ml");
 router.post("/transact",async (req,res,next)=>{
 
     let quality = tester(req.body.quality);
-    console.log(quality.error);
-    if(quality>1)
+    console.log(quality);
+    if(quality.error>1)
         return res.json({message:"Food quality not upto the mark"});
     let data = await chain.find({});
     if(data.length < 1){
