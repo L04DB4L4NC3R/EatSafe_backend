@@ -6,7 +6,15 @@ module.exports.chain = mongoose.model("block",new mongoose.Schema({
         to:String,
         asset:String,
         quants:Number,
-        quality:Boolean
+        quality:{
+            type:{
+                temperature:Number,
+                 humidity:Number,
+                 gas:Number,
+                 airqual:Number,
+                 soilmois:-Number
+               }
+        }
        },
        previousHash:String,
        hash:String,
