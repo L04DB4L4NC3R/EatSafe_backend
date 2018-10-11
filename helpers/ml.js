@@ -24,11 +24,15 @@ let fun = (data)=>{
     }]);
 };
 
+
+console.log(fun({
+    temperature:48,
+     humidity:46,
+     gas:125,
+     airqual:998,
+     soilmois:-7
+   }));
+
+   
+   
 module.exports = fun;
- console.log(fun({
-  temperature:0,
-   humidity:46,
-   gas:125,
-   airqual:998,
-   soilmois:-7
- }));

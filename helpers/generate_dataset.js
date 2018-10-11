@@ -1,6 +1,6 @@
 const fs = require("fs")
 let arr = [];
-for(let i=30;i<50;i++){
+for(let i=0;i<50;i++){
     for(let j=35;j<95;j++){
             
                  
