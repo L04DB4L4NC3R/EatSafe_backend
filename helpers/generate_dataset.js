@@ -1,7 +1,7 @@
 const fs = require("fs")
 let arr = [];
-for(let i=20;i<50;i++){
-    for(let j=30;j<100;j++){
+for(let i=30;i<50;i++){
+    for(let j=35;j<95;j++){
             
                  
                     
