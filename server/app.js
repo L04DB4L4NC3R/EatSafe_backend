@@ -12,11 +12,13 @@ app.get("/",(req,res)=>{
 });
 
 
-app.post("/",(req,res)=>{
-    res.send({
-        message:"This is the body",
-        body:req.body
-    });
+/*
+    params: from, to, hardware fields
+*/
+app.post("/transact",(req,res)=>{
+   res.json({
+       message:"Added"
+   })
 });
 
 

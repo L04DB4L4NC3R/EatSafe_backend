@@ -30029,6 +30029,7 @@ const PREFIX = '19d832'
 // Fetch key-pairs from localStorage
 const getKeys = () => {
   const storedKeys = localStorage.getItem(KEY_NAME)
+  console.log(storedKeys)
   if (!storedKeys) return []
 
   return storedKeys.split(';').map((pair) => {
@@ -30042,6 +30043,7 @@ const getKeys = () => {
 
 // Create new key-pair
 const makeKeyPair = () => {
+  
   const context = createContext('secp256k1')
   const privateKey = context.newRandomPrivateKey()
   return {

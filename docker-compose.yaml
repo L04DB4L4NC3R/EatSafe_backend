@@ -115,11 +115,11 @@ services:
       "
 
   node_backend:
-    container_name: node chatroom
-    build ./server/
+    container_name: node_backend
+    build: ./server/
     image: node_backend
     ports:
-      80:3000
+      - 9000:3000
     volumes:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules
