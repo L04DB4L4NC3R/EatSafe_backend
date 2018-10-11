@@ -7,6 +7,7 @@ const {
 } = require("../helpers/bc");
 
 const chain = require("../schema/schema").chain;
+const tester = require("../helpers/ml");
 
 
 /**
@@ -14,10 +15,15 @@ const chain = require("../schema/schema").chain;
             to:String,
             asset:String,
             quants:Number,
-            quality:Boolean
+            quality:{
+                temperature,humidity,gas,airqual,soilmois
+            }
  */
 router.post("/transact",async (req,res,next)=>{
 
+    let quality = tester(req.body.quality);
+    if(quality>1)
+        return res.json({message:"Food quality not upto the mark"});
     let data = await chain.find({});
     if(data.length < 1){
 
