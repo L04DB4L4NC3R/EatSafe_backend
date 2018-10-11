@@ -25,10 +25,10 @@ let fun = (data)=>{
 };
 
 module.exports = fun;
-// console.log(fun({
-//   temperature:27,
-//   humidity:46,
-//   gas:125,
-//   airqual:998,
-//   soilmois:-7
-// }));
+ console.log(fun({
+  temperature:0,
+   humidity:46,
+   gas:125,
+   airqual:998,
+   soilmois:-7
+ }));
