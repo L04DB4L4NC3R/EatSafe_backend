@@ -4,10 +4,7 @@ let myNetwork = new synaptic.Architect.Perceptron(2, 2, 1)
 let trainer = new synaptic.Trainer(myNetwork)
 
 let trainingSet = require("./data.json");
-let trainingSet = [{
-    input:[1,1,1,1,1],
-    output:[false]
-}]
+
 
 trainer.train(trainingSet,{
 	rate: .1,
