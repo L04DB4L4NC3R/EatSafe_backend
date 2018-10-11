@@ -114,13 +114,3 @@ services:
           --bind network:tcp://eth0:8800
       "
 
-
-  node_chatroom:
-    container_name: node_chatroom
-    build: ./server/
-    image: nodejs-chatroom
-    ports:
-      - 80:3000
-    volumes:
-      - ./server:/usr/src/app
-      - /usr/src/app/node_modules

@@ -65,35 +65,6 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-if (typeof Object.create === 'function') {
-  // implementation from standard node.js 'util' module
-  module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    ctor.prototype = Object.create(superCtor.prototype, {
-      constructor: {
-        value: ctor,
-        enumerable: false,
-        writable: true,
-        configurable: true
-      }
-    });
-  };
-} else {
-  // old school shim for old browsers
-  module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    var TempCtor = function () {}
-    TempCtor.prototype = superCtor.prototype
-    ctor.prototype = new TempCtor()
-    ctor.prototype.constructor = ctor
-  }
-}
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* eslint-disable node/no-deprecated-api */
@@ -157,6 +128,35 @@ SafeBuffer.allocUnsafeSlow = function (size) {
     throw new TypeError('Argument must be a number')
   }
   return buffer.SlowBuffer(size)
+}
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    ctor.prototype = Object.create(superCtor.prototype, {
+      constructor: {
+        value: ctor,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    var TempCtor = function () {}
+    TempCtor.prototype = superCtor.prototype
+    ctor.prototype = new TempCtor()
+    ctor.prototype.constructor = ctor
+  }
 }
 
 
@@ -5648,7 +5648,7 @@ module.exports = g;
 
 
 var assert = __webpack_require__(6);
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 
 exports.inherits = inherits;
 
@@ -6704,10 +6704,10 @@ process.umask = function() { return 0; };
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var Transform = __webpack_require__(34).Transform
 var StringDecoder = __webpack_require__(38).StringDecoder
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 
 function CipherBase (hashMode) {
   Transform.call(this)
@@ -6856,7 +6856,7 @@ module.exports = Duplex;
 
 /*<replacement>*/
 var util = __webpack_require__(20);
-util.inherits = __webpack_require__(0);
+util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 var Readable = __webpack_require__(57);
@@ -7331,7 +7331,7 @@ function oldBrowser () {
   throw new Error('Secure random number generation is not supported by this browser.\nUse Chrome, Firefox or Internet Explorer 11')
 }
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var crypto = global.crypto || global.msCrypto
 
 if (crypto && crypto.getRandomValues) {
@@ -7372,7 +7372,7 @@ function randomBytes (size, cb) {
 
 "use strict";
 
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 var MD5 = __webpack_require__(33)
 var RIPEMD160 = __webpack_require__(39)
 var sha = __webpack_require__(40)
@@ -7407,7 +7407,7 @@ module.exports = function createHash (alg) {
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 // prototype class for hash functions
 function Hash (blockSize, finalSize) {
@@ -8658,7 +8658,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 // which is in turn based on the one from crypto-js
 // https://code.google.com/p/crypto-js/
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 function asUInt32Array (buf) {
   if (!Buffer.isBuffer(buf)) buf = Buffer.from(buf)
@@ -8887,7 +8887,7 @@ module.exports.AES = AES
 /* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var MD5 = __webpack_require__(33)
 
 /* eslint-disable camelcase */
@@ -19648,9 +19648,10 @@ return jQuery;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {
-var inherits = __webpack_require__(0)
+
+var inherits = __webpack_require__(1)
 var HashBase = __webpack_require__(56)
+var Buffer = __webpack_require__(0).Buffer
 
 var ARRAY16 = new Array(16)
 
@@ -19764,7 +19765,7 @@ MD5.prototype._digest = function () {
   this._update()
 
   // produce result
-  var buffer = new Buffer(16)
+  var buffer = Buffer.allocUnsafe(16)
   buffer.writeInt32LE(this._a, 0)
   buffer.writeInt32LE(this._b, 4)
   buffer.writeInt32LE(this._c, 8)
@@ -19794,7 +19795,6 @@ function fnI (a, b, c, d, m, k, s) {
 
 module.exports = MD5
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2).Buffer))
 
 /***/ }),
 /* 34 */
@@ -19824,7 +19824,7 @@ module.exports = MD5
 module.exports = Stream;
 
 var EE = __webpack_require__(35).EventEmitter;
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 
 inherits(Stream, EE);
 Stream.Readable = __webpack_require__(36);
@@ -20322,7 +20322,7 @@ Writable.WritableState = WritableState;
 
 /*<replacement>*/
 var util = __webpack_require__(20);
-util.inherits = __webpack_require__(0);
+util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -20337,7 +20337,7 @@ var Stream = __webpack_require__(58);
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(1).Buffer;
+var Buffer = __webpack_require__(0).Buffer;
 var OurUint8Array = global.Uint8Array || function () {};
 function _uint8ArrayToBuffer(chunk) {
   return Buffer.from(chunk);
@@ -20974,7 +20974,7 @@ Writable.prototype._destroy = function (err, cb) {
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(1).Buffer;
+var Buffer = __webpack_require__(0).Buffer;
 /*</replacement>*/
 
 var isEncoding = Buffer.isEncoding || function (encoding) {
@@ -21253,7 +21253,7 @@ function simpleEnd(buf) {
 "use strict";
 
 var Buffer = __webpack_require__(2).Buffer
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 var HashBase = __webpack_require__(56)
 
 var ARRAY16 = new Array(16)
@@ -24125,9 +24125,9 @@ exports.constants = {
 
 "use strict";
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var Transform = __webpack_require__(34).Transform
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 
 function throwIfNotStringOrBuffer (val, prefix) {
   if (!Buffer.isBuffer(val) && typeof val !== 'string') {
@@ -24280,7 +24280,7 @@ var Stream = __webpack_require__(58);
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(1).Buffer;
+var Buffer = __webpack_require__(0).Buffer;
 var OurUint8Array = global.Uint8Array || function () {};
 function _uint8ArrayToBuffer(chunk) {
   return Buffer.from(chunk);
@@ -24293,7 +24293,7 @@ function _isUint8Array(obj) {
 
 /*<replacement>*/
 var util = __webpack_require__(20);
-util.inherits = __webpack_require__(0);
+util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -25410,7 +25410,7 @@ var Duplex = __webpack_require__(13);
 
 /*<replacement>*/
 var util = __webpack_require__(20);
-util.inherits = __webpack_require__(0);
+util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 util.inherits(Transform, Duplex);
@@ -25566,9 +25566,9 @@ function done(stream, er, data) {
  *
  */
 
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 var Hash = __webpack_require__(17)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 var K = [
   0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5,
@@ -25699,9 +25699,9 @@ module.exports = Sha256
 /* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 var Hash = __webpack_require__(17)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 var K = [
   0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd,
@@ -25967,10 +25967,10 @@ module.exports = Sha512
 
 "use strict";
 
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 var Legacy = __webpack_require__(122)
 var Base = __webpack_require__(12)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var md5 = __webpack_require__(64)
 var RIPEMD160 = __webpack_require__(39)
 
@@ -26112,12 +26112,12 @@ module.exports = defaultEncoding
 /***/ (function(module, exports, __webpack_require__) {
 
 var md5 = __webpack_require__(64)
-var rmd160 = __webpack_require__(39)
+var RIPEMD160 = __webpack_require__(39)
 var sha = __webpack_require__(40)
 
 var checkParameters = __webpack_require__(67)
 var defaultEncoding = __webpack_require__(68)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var ZEROS = Buffer.alloc(128)
 var sizes = {
   md5: 16,
@@ -26169,8 +26169,11 @@ function getDigest (alg) {
   function shaFunc (data) {
     return sha(alg).update(data).digest()
   }
+  function rmd160Func (data) {
+    return new RIPEMD160().update(data).digest()
+  }
 
-  if (alg === 'rmd160' || alg === 'ripemd160') return rmd160
+  if (alg === 'rmd160' || alg === 'ripemd160') return rmd160Func
   if (alg === 'md5') return md5
   return shaFunc
 }
@@ -26219,7 +26222,7 @@ module.exports = pbkdf2
 /***/ (function(module, exports, __webpack_require__) {
 
 var xor = __webpack_require__(21)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var incr32 = __webpack_require__(71)
 
 function getBlock (self) {
@@ -26282,9 +26285,9 @@ module.exports = {"aes-128-ecb":{"cipher":"AES","key":128,"iv":0,"mode":"ECB","t
 /***/ (function(module, exports, __webpack_require__) {
 
 var aes = __webpack_require__(27)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var Transform = __webpack_require__(12)
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 var GHASH = __webpack_require__(139)
 var xor = __webpack_require__(21)
 var incr32 = __webpack_require__(71)
@@ -26405,9 +26408,9 @@ module.exports = StreamCipher
 /***/ (function(module, exports, __webpack_require__) {
 
 var aes = __webpack_require__(27)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var Transform = __webpack_require__(12)
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 
 function StreamCipher (mode, key, iv, decrypt) {
   Transform.call(this)
@@ -27310,7 +27313,7 @@ function g1_512_lo(xh, xl) {
 /* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 var Reporter = __webpack_require__(24).Reporter;
 var Buffer = __webpack_require__(2).Buffer;
 
@@ -27457,7 +27460,7 @@ constants.der = __webpack_require__(177);
 /* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 
 var asn1 = __webpack_require__(23);
 var base = asn1.base;
@@ -27787,7 +27790,7 @@ function derDecodeLen(buf, primitive, fail) {
 /* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 var Buffer = __webpack_require__(2).Buffer;
 
 var asn1 = __webpack_require__(23);
@@ -28094,52 +28097,58 @@ module.exports = {"1.3.132.0.10":"secp256k1","1.3.132.0.33":"p224","1.2.840.1004
 /* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(16);
-module.exports = function (seed, len) {
-  var t = new Buffer('');
-  var  i = 0, c;
-  while (t.length < len) {
-    c = i2ops(i++);
-    t = Buffer.concat([t, createHash('sha1').update(seed).update(c).digest()]);
-  }
-  return t.slice(0, len);
-};
+var createHash = __webpack_require__(16)
+var Buffer = __webpack_require__(0).Buffer
 
-function i2ops(c) {
-  var out = new Buffer(4);
-  out.writeUInt32BE(c,0);
-  return out;
+module.exports = function (seed, len) {
+  var t = Buffer.alloc(0)
+  var i = 0
+  var c
+  while (t.length < len) {
+    c = i2ops(i++)
+    t = Buffer.concat([t, createHash('sha1').update(seed).update(c).digest()])
+  }
+  return t.slice(0, len)
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2).Buffer))
+
+function i2ops (c) {
+  var out = Buffer.allocUnsafe(4)
+  out.writeUInt32BE(c, 0)
+  return out
+}
+
 
 /***/ }),
 /* 88 */
 /***/ (function(module, exports) {
 
-module.exports = function xor(a, b) {
-  var len = a.length;
-  var i = -1;
+module.exports = function xor (a, b) {
+  var len = a.length
+  var i = -1
   while (++i < len) {
-    a[i] ^= b[i];
+    a[i] ^= b[i]
   }
   return a
-};
+}
+
 
 /***/ }),
 /* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var bn = __webpack_require__(3);
-function withPublic(paddedMsg, key) {
-  return new Buffer(paddedMsg
-    .toRed(bn.mont(key.modulus))
-    .redPow(new bn(key.publicExponent))
+var BN = __webpack_require__(3)
+var Buffer = __webpack_require__(0).Buffer
+
+function withPublic (paddedMsg, key) {
+  return Buffer.from(paddedMsg
+    .toRed(BN.mont(key.modulus))
+    .redPow(new BN(key.publicExponent))
     .fromRed()
-    .toArray());
+    .toArray())
 }
 
-module.exports = withPublic;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2).Buffer))
+module.exports = withPublic
+
 
 /***/ }),
 /* 90 */
@@ -30397,7 +30406,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Buffer = __webpack_require__(1).Buffer;
+var Buffer = __webpack_require__(0).Buffer;
 var util = __webpack_require__(109);
 
 function copyBuffer(src, target, offset) {
@@ -30854,7 +30863,7 @@ var Transform = __webpack_require__(60);
 
 /*<replacement>*/
 var util = __webpack_require__(20);
-util.inherits = __webpack_require__(0);
+util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 util.inherits(PassThrough, Transform);
@@ -30909,9 +30918,9 @@ module.exports = __webpack_require__(36).PassThrough
  * operation was added.
  */
 
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 var Hash = __webpack_require__(17)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 var K = [
   0x5a827999, 0x6ed9eba1, 0x8f1bbcdc | 0, 0xca62c1d6 | 0
@@ -31010,9 +31019,9 @@ module.exports = Sha
  * See http://pajhome.org.uk/crypt/md5 for details.
  */
 
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 var Hash = __webpack_require__(17)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 var K = [
   0x5a827999, 0x6ed9eba1, 0x8f1bbcdc | 0, 0xca62c1d6 | 0
@@ -31114,10 +31123,10 @@ module.exports = Sha1
  *
  */
 
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 var Sha256 = __webpack_require__(61)
 var Hash = __webpack_require__(17)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 var W = new Array(64)
 
@@ -31165,10 +31174,10 @@ module.exports = Sha224
 /* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 var SHA512 = __webpack_require__(62)
 var Hash = __webpack_require__(17)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 var W = new Array(160)
 
@@ -31230,8 +31239,8 @@ module.exports = Sha384
 
 "use strict";
 
-var inherits = __webpack_require__(0)
-var Buffer = __webpack_require__(1).Buffer
+var inherits = __webpack_require__(1)
+var Buffer = __webpack_require__(0).Buffer
 
 var Base = __webpack_require__(12)
 
@@ -31291,7 +31300,7 @@ module.exports = __webpack_require__(65)
 /* WEBPACK VAR INJECTION */(function(global, process) {var checkParameters = __webpack_require__(67)
 var defaultEncoding = __webpack_require__(68)
 var sync = __webpack_require__(69)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 var ZERO_BUF
 var subtle = global.crypto && global.crypto.subtle
@@ -31470,8 +31479,8 @@ exports.listCiphers = exports.getCiphers = getCiphers
 
 var CipherBase = __webpack_require__(12)
 var des = __webpack_require__(41)
-var inherits = __webpack_require__(0)
-var Buffer = __webpack_require__(1).Buffer
+var inherits = __webpack_require__(1)
+var Buffer = __webpack_require__(0).Buffer
 
 var modes = {
   'des-ede3-cbc': des.CBC.instantiate(des.EDE),
@@ -31939,7 +31948,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
 
 
 var assert = __webpack_require__(6);
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 
 var des = __webpack_require__(41);
 var utils = des.utils;
@@ -32089,7 +32098,7 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
 
 
 var assert = __webpack_require__(6);
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 
 var proto = {};
 
@@ -32161,7 +32170,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
 
 
 var assert = __webpack_require__(6);
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 
 var des = __webpack_require__(41);
 var Cipher = des.Cipher;
@@ -32221,12 +32230,12 @@ EDE.prototype._unpad = DES.prototype._unpad;
 
 var MODES = __webpack_require__(43)
 var AuthCipher = __webpack_require__(73)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var StreamCipher = __webpack_require__(74)
 var Transform = __webpack_require__(12)
 var aes = __webpack_require__(27)
 var ebtk = __webpack_require__(28)
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 
 function Cipher (mode, key, iv) {
   Transform.call(this)
@@ -32375,7 +32384,7 @@ exports.decrypt = function (self, block) {
 /* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var xor = __webpack_require__(21)
 
 function encryptStart (self, data, decrypt) {
@@ -32414,7 +32423,7 @@ exports.encrypt = function (self, data, decrypt) {
 /* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 function encryptByte (self, byteParam, decrypt) {
   var pad = self._cipher.encryptBlock(self._prev)
@@ -32445,7 +32454,7 @@ exports.encrypt = function (self, chunk, decrypt) {
 /* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 function encryptByte (self, byteParam, decrypt) {
   var pad
@@ -32516,7 +32525,7 @@ exports.encrypt = function (self, chunk) {
 /* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var ZEROES = Buffer.alloc(16, 0)
 
 function toArray (buf) {
@@ -32612,13 +32621,13 @@ module.exports = GHASH
 /***/ (function(module, exports, __webpack_require__) {
 
 var AuthCipher = __webpack_require__(73)
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var MODES = __webpack_require__(43)
 var StreamCipher = __webpack_require__(74)
 var Transform = __webpack_require__(12)
 var aes = __webpack_require__(27)
 var ebtk = __webpack_require__(28)
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 
 function Decipher (mode, key, iv) {
   Transform.call(this)
@@ -33039,7 +33048,7 @@ function formatReturnValue(bn, enc) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(16)
 var stream = __webpack_require__(34)
-var inherits = __webpack_require__(0)
+var inherits = __webpack_require__(1)
 var sign = __webpack_require__(149)
 var verify = __webpack_require__(185)
 
@@ -33808,7 +33817,7 @@ BasePoint.prototype.dblp = function dblp(k) {
 var curve = __webpack_require__(29);
 var elliptic = __webpack_require__(5);
 var BN = __webpack_require__(3);
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 var Base = curve.base;
 
 var assert = elliptic.utils.assert;
@@ -34751,7 +34760,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
 
 var curve = __webpack_require__(29);
 var BN = __webpack_require__(3);
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 var Base = curve.base;
 
 var elliptic = __webpack_require__(5);
@@ -34939,7 +34948,7 @@ Point.prototype.getX = function getX() {
 var curve = __webpack_require__(29);
 var elliptic = __webpack_require__(5);
 var BN = __webpack_require__(3);
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 var Base = curve.base;
 
 var assert = elliptic.utils.assert;
@@ -37818,7 +37827,7 @@ exports.signature = asn1.define('signature', function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 var asn1 = __webpack_require__(23);
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 
 var api = exports;
 
@@ -38043,7 +38052,7 @@ module.exports = function(arr, obj){
 /* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 
 function Reporter(options) {
   this._reporterState = {
@@ -38868,7 +38877,7 @@ decoders.pem = __webpack_require__(179);
 /* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 var Buffer = __webpack_require__(2).Buffer;
 
 var DERDecoder = __webpack_require__(84);
@@ -38933,7 +38942,7 @@ encoders.pem = __webpack_require__(181);
 /* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var inherits = __webpack_require__(0);
+var inherits = __webpack_require__(1);
 
 var DEREncoder = __webpack_require__(85);
 
@@ -39319,231 +39328,222 @@ function formatReturnValue (bn, enc, len) {
 /* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports.publicEncrypt = __webpack_require__(188);
-exports.privateDecrypt = __webpack_require__(189);
+exports.publicEncrypt = __webpack_require__(188)
+exports.privateDecrypt = __webpack_require__(189)
 
-exports.privateEncrypt = function privateEncrypt(key, buf) {
-  return exports.publicEncrypt(key, buf, true);
-};
+exports.privateEncrypt = function privateEncrypt (key, buf) {
+  return exports.publicEncrypt(key, buf, true)
+}
 
-exports.publicDecrypt = function publicDecrypt(key, buf) {
-  return exports.privateDecrypt(key, buf, true);
-};
+exports.publicDecrypt = function publicDecrypt (key, buf) {
+  return exports.privateDecrypt(key, buf, true)
+}
+
 
 /***/ }),
 /* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(30);
-var randomBytes = __webpack_require__(15);
-var createHash = __webpack_require__(16);
-var mgf = __webpack_require__(87);
-var xor = __webpack_require__(88);
-var bn = __webpack_require__(3);
-var withPublic = __webpack_require__(89);
-var crt = __webpack_require__(44);
+var parseKeys = __webpack_require__(30)
+var randomBytes = __webpack_require__(15)
+var createHash = __webpack_require__(16)
+var mgf = __webpack_require__(87)
+var xor = __webpack_require__(88)
+var BN = __webpack_require__(3)
+var withPublic = __webpack_require__(89)
+var crt = __webpack_require__(44)
+var Buffer = __webpack_require__(0).Buffer
 
-var constants = {
-  RSA_PKCS1_OAEP_PADDING: 4,
-  RSA_PKCS1_PADDIN: 1,
-  RSA_NO_PADDING: 3
-};
-
-module.exports = function publicEncrypt(public_key, msg, reverse) {
-  var padding;
-  if (public_key.padding) {
-    padding = public_key.padding;
+module.exports = function publicEncrypt (publicKey, msg, reverse) {
+  var padding
+  if (publicKey.padding) {
+    padding = publicKey.padding
   } else if (reverse) {
-    padding = 1;
+    padding = 1
   } else {
-    padding = 4;
+    padding = 4
   }
-  var key = parseKeys(public_key);
-  var paddedMsg;
+  var key = parseKeys(publicKey)
+  var paddedMsg
   if (padding === 4) {
-    paddedMsg = oaep(key, msg);
+    paddedMsg = oaep(key, msg)
   } else if (padding === 1) {
-    paddedMsg = pkcs1(key, msg, reverse);
+    paddedMsg = pkcs1(key, msg, reverse)
   } else if (padding === 3) {
-    paddedMsg = new bn(msg);
+    paddedMsg = new BN(msg)
     if (paddedMsg.cmp(key.modulus) >= 0) {
-      throw new Error('data too long for modulus');
+      throw new Error('data too long for modulus')
     }
   } else {
-    throw new Error('unknown padding');
+    throw new Error('unknown padding')
   }
   if (reverse) {
-    return crt(paddedMsg, key);
+    return crt(paddedMsg, key)
   } else {
-    return withPublic(paddedMsg, key);
+    return withPublic(paddedMsg, key)
   }
-};
+}
 
-function oaep(key, msg){
-  var k = key.modulus.byteLength();
-  var mLen = msg.length;
-  var iHash = createHash('sha1').update(new Buffer('')).digest();
-  var hLen = iHash.length;
-  var hLen2 = 2 * hLen;
+function oaep (key, msg) {
+  var k = key.modulus.byteLength()
+  var mLen = msg.length
+  var iHash = createHash('sha1').update(Buffer.alloc(0)).digest()
+  var hLen = iHash.length
+  var hLen2 = 2 * hLen
   if (mLen > k - hLen2 - 2) {
-    throw new Error('message too long');
+    throw new Error('message too long')
   }
-  var ps = new Buffer(k - mLen - hLen2 - 2);
-  ps.fill(0);
-  var dblen = k - hLen - 1;
-  var seed = randomBytes(hLen);
-  var maskedDb = xor(Buffer.concat([iHash, ps, new Buffer([1]), msg], dblen), mgf(seed, dblen));
-  var maskedSeed = xor(seed, mgf(maskedDb, hLen));
-  return new bn(Buffer.concat([new Buffer([0]), maskedSeed, maskedDb], k));
+  var ps = Buffer.alloc(k - mLen - hLen2 - 2)
+  var dblen = k - hLen - 1
+  var seed = randomBytes(hLen)
+  var maskedDb = xor(Buffer.concat([iHash, ps, Buffer.alloc(1, 1), msg], dblen), mgf(seed, dblen))
+  var maskedSeed = xor(seed, mgf(maskedDb, hLen))
+  return new BN(Buffer.concat([Buffer.alloc(1), maskedSeed, maskedDb], k))
 }
-function pkcs1(key, msg, reverse){
-  var mLen = msg.length;
-  var k = key.modulus.byteLength();
+function pkcs1 (key, msg, reverse) {
+  var mLen = msg.length
+  var k = key.modulus.byteLength()
   if (mLen > k - 11) {
-    throw new Error('message too long');
+    throw new Error('message too long')
   }
-  var ps;
+  var ps
   if (reverse) {
-    ps = new Buffer(k - mLen - 3);
-    ps.fill(0xff);
+    ps = Buffer.alloc(k - mLen - 3, 0xff)
   } else {
-    ps = nonZero(k - mLen - 3);
+    ps = nonZero(k - mLen - 3)
   }
-  return new bn(Buffer.concat([new Buffer([0, reverse?1:2]), ps, new Buffer([0]), msg], k));
+  return new BN(Buffer.concat([Buffer.from([0, reverse ? 1 : 2]), ps, Buffer.alloc(1), msg], k))
 }
-function nonZero(len, crypto) {
-  var out = new Buffer(len);
-  var i = 0;
-  var cache = randomBytes(len*2);
-  var cur = 0;
-  var num;
+function nonZero (len) {
+  var out = Buffer.allocUnsafe(len)
+  var i = 0
+  var cache = randomBytes(len * 2)
+  var cur = 0
+  var num
   while (i < len) {
     if (cur === cache.length) {
-      cache = randomBytes(len*2);
-      cur = 0;
+      cache = randomBytes(len * 2)
+      cur = 0
     }
-    num = cache[cur++];
+    num = cache[cur++]
     if (num) {
-      out[i++] = num;
+      out[i++] = num
     }
   }
-  return out;
+  return out
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2).Buffer))
+
 
 /***/ }),
 /* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var parseKeys = __webpack_require__(30);
-var mgf = __webpack_require__(87);
-var xor = __webpack_require__(88);
-var bn = __webpack_require__(3);
-var crt = __webpack_require__(44);
-var createHash = __webpack_require__(16);
-var withPublic = __webpack_require__(89);
-module.exports = function privateDecrypt(private_key, enc, reverse) {
-  var padding;
-  if (private_key.padding) {
-    padding = private_key.padding;
-  } else if (reverse) {
-    padding = 1;
-  } else {
-    padding = 4;
-  }
-  
-  var key = parseKeys(private_key);
-  var k = key.modulus.byteLength();
-  if (enc.length > k || new bn(enc).cmp(key.modulus) >= 0) {
-    throw new Error('decryption error');
-  }
-  var msg;
-  if (reverse) {
-    msg = withPublic(new bn(enc), key);
-  } else {
-    msg = crt(enc, key);
-  }
-  var zBuffer = new Buffer(k - msg.length);
-  zBuffer.fill(0);
-  msg = Buffer.concat([zBuffer, msg], k);
-  if (padding === 4) {
-    return oaep(key, msg);
-  } else if (padding === 1) {
-    return pkcs1(key, msg, reverse);
-  } else if (padding === 3) {
-    return msg;
-  } else {
-    throw new Error('unknown padding');
-  }
-};
+var parseKeys = __webpack_require__(30)
+var mgf = __webpack_require__(87)
+var xor = __webpack_require__(88)
+var BN = __webpack_require__(3)
+var crt = __webpack_require__(44)
+var createHash = __webpack_require__(16)
+var withPublic = __webpack_require__(89)
+var Buffer = __webpack_require__(0).Buffer
 
-function oaep(key, msg){
-  var n = key.modulus;
-  var k = key.modulus.byteLength();
-  var mLen = msg.length;
-  var iHash = createHash('sha1').update(new Buffer('')).digest();
-  var hLen = iHash.length;
-  var hLen2 = 2 * hLen;
+module.exports = function privateDecrypt (privateKey, enc, reverse) {
+  var padding
+  if (privateKey.padding) {
+    padding = privateKey.padding
+  } else if (reverse) {
+    padding = 1
+  } else {
+    padding = 4
+  }
+
+  var key = parseKeys(privateKey)
+  var k = key.modulus.byteLength()
+  if (enc.length > k || new BN(enc).cmp(key.modulus) >= 0) {
+    throw new Error('decryption error')
+  }
+  var msg
+  if (reverse) {
+    msg = withPublic(new BN(enc), key)
+  } else {
+    msg = crt(enc, key)
+  }
+  var zBuffer = Buffer.alloc(k - msg.length)
+  msg = Buffer.concat([zBuffer, msg], k)
+  if (padding === 4) {
+    return oaep(key, msg)
+  } else if (padding === 1) {
+    return pkcs1(key, msg, reverse)
+  } else if (padding === 3) {
+    return msg
+  } else {
+    throw new Error('unknown padding')
+  }
+}
+
+function oaep (key, msg) {
+  var k = key.modulus.byteLength()
+  var iHash = createHash('sha1').update(Buffer.alloc(0)).digest()
+  var hLen = iHash.length
   if (msg[0] !== 0) {
-    throw new Error('decryption error');
+    throw new Error('decryption error')
   }
-  var maskedSeed = msg.slice(1, hLen + 1);
-  var maskedDb =  msg.slice(hLen + 1);
-  var seed = xor(maskedSeed, mgf(maskedDb, hLen));
-  var db = xor(maskedDb, mgf(seed, k - hLen - 1));
+  var maskedSeed = msg.slice(1, hLen + 1)
+  var maskedDb = msg.slice(hLen + 1)
+  var seed = xor(maskedSeed, mgf(maskedDb, hLen))
+  var db = xor(maskedDb, mgf(seed, k - hLen - 1))
   if (compare(iHash, db.slice(0, hLen))) {
-    throw new Error('decryption error');
+    throw new Error('decryption error')
   }
-  var i = hLen;
+  var i = hLen
   while (db[i] === 0) {
-    i++;
+    i++
   }
   if (db[i++] !== 1) {
-    throw new Error('decryption error');
+    throw new Error('decryption error')
   }
-  return db.slice(i);
+  return db.slice(i)
 }
 
-function pkcs1(key, msg, reverse){
-  var p1 = msg.slice(0, 2);
-  var i = 2;
-  var status = 0;
+function pkcs1 (key, msg, reverse) {
+  var p1 = msg.slice(0, 2)
+  var i = 2
+  var status = 0
   while (msg[i++] !== 0) {
     if (i >= msg.length) {
-      status++;
-      break;
+      status++
+      break
     }
   }
-  var ps = msg.slice(2, i - 1);
-  var p2 = msg.slice(i - 1, i);
+  var ps = msg.slice(2, i - 1)
 
-  if ((p1.toString('hex') !== '0002' && !reverse) || (p1.toString('hex') !== '0001' && reverse)){
-    status++;
+  if ((p1.toString('hex') !== '0002' && !reverse) || (p1.toString('hex') !== '0001' && reverse)) {
+    status++
   }
   if (ps.length < 8) {
-    status++;
+    status++
   }
   if (status) {
-    throw new Error('decryption error');
+    throw new Error('decryption error')
   }
-  return  msg.slice(i);
+  return msg.slice(i)
 }
-function compare(a, b){
-  a = new Buffer(a);
-  b = new Buffer(b);
-  var dif = 0;
-  var len = a.length;
+function compare (a, b) {
+  a = Buffer.from(a)
+  b = Buffer.from(b)
+  var dif = 0
+  var len = a.length
   if (a.length !== b.length) {
-    dif++;
-    len = Math.min(a.length, b.length);
+    dif++
+    len = Math.min(a.length, b.length)
   }
-  var i = -1;
+  var i = -1
   while (++i < len) {
-    dif += (a[i] ^ b[i]);
+    dif += (a[i] ^ b[i])
   }
-  return dif;
+  return dif
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2).Buffer))
+
 
 /***/ }),
 /* 190 */
@@ -39555,7 +39555,7 @@ function compare(a, b){
 function oldBrowser () {
   throw new Error('secure random number generation not supported by this browser\nuse chrome, FireFox or Internet Explorer 11')
 }
-var safeBuffer = __webpack_require__(1)
+var safeBuffer = __webpack_require__(0)
 var randombytes = __webpack_require__(15)
 var Buffer = safeBuffer.Buffer
 var kBufferMaxLength = safeBuffer.kMaxLength
@@ -43049,7 +43049,7 @@ exports.isNumberInInterval = function (number, x, y, message) {
 
 "use strict";
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var bip66 = __webpack_require__(216)
 
 var EC_PRIVKEY_EXPORT_DER_COMPRESSED = Buffer.from([
@@ -43251,7 +43251,7 @@ exports.signatureImportLax = function (sig) {
 // Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
 // NOTE: SIGHASH byte ignored AND restricted, truncate before use
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 
 function check (buffer) {
   if (buffer.length < 8) return false
@@ -43368,7 +43368,7 @@ module.exports = {
 
 "use strict";
 
-var Buffer = __webpack_require__(1).Buffer
+var Buffer = __webpack_require__(0).Buffer
 var createHash = __webpack_require__(16)
 var BN = __webpack_require__(3)
 var EC = __webpack_require__(5).ec
